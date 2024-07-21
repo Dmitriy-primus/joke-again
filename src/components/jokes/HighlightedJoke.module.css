@@ -1,4 +1,5 @@
 .joke {
+  display: flex;
   background-color: #563b1a;
   color: white;
   border-radius: 7px;
@@ -6,6 +7,7 @@
   margin: 3rem auto;
   width: 90%;
   max-width: 50rem;
+  justify-content: center;
 }
 
 .joke p {
@@ -13,6 +15,7 @@
 }
 
 .joke figcaption {
+  text-align: center;
   font-style: italic;
   font-size: 1.5rem;
   text-align: center;

@@ -1,9 +1,9 @@
 import JokeList from "../components/jokes/JokeList";
 
-const Jokes = () => {
+const Jokes = (props) => {
   return (
     <>
-      <JokeList />
+      <JokeList jokes={props.jokes} />
     </>
   );
 };

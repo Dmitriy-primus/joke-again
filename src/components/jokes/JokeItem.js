@@ -1,5 +1,4 @@
 import styles from "./JokeItem.module.css";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const JokeItem = (props) => {
@@ -11,7 +10,7 @@ const JokeItem = (props) => {
         </blockquote>
         <figcaption>{props.topic}</figcaption>
       </figure>
-      <Link className="btn" to="/jokes/:jokesId">
+      <Link className="btn" to={`/jokes/${props.id}`}>
         Expand
       </Link>
     </li>

@@ -1,4 +1,4 @@
-import styles from './HighlightedJoke.module.css';
+import styles from "./HighlightedJoke.module.css";
 
 const HighlightedJoke = (props) => {
   return (

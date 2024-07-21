@@ -3,9 +3,11 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Jokes from "./pajes/Jokes";
 import AddJoke from "./pajes/AddJoke";
 import JokeDetail from "./pajes/JokeDetail";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import NotFound from "./pajes/NotFound";
 
 function App() {
+  const [stateJokeList, setStateJokeList] = useState([]);
   const onFetchJokes = async () => {
     const response = await fetch(
       "https://jokes-cbee8-default-rtdb.firebaseio.com/jokes.json"
@@ -22,11 +24,14 @@ function App() {
         text: dataJokes[joke].text,
       });
     }
-    console.log(newDataJokes);
+    setStateJokeList(newDataJokes);
   };
+
+  console.log(stateJokeList);
   useEffect(() => {
     onFetchJokes();
   }, []);
+
   return (
     <>
       <Layout>
@@ -35,13 +40,18 @@ function App() {
             <Redirect to="/jokes" />
           </Route>
           <Route path="/jokes" exact>
-            <Jokes />
+            <Jokes jokes={stateJokeList} />
           </Route>
           <Route path="/add-joke">
             <AddJoke />
           </Route>
           <Route path="/jokes/:jokesId">
-            <JokeDetail />
+            <JokeDetail jokes={stateJokeList} />
+          </Route>
+          <Route path="*">
+            {/* устанавливается последним, производит загрузку данной страницы,
+            если url не валиден  */}
+            <NotFound />
           </Route>
         </Switch>
       </Layout>
