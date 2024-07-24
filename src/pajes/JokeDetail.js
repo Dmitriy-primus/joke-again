@@ -1,12 +1,15 @@
-import { useParams, Route } from "react-router-dom";
+import { useParams, Route, Link, useRouteMatch } from "react-router-dom";
+
 import Comments from "../components/comments/Comments";
 import HighlightedJoke from "../components/jokes/HighlightedJoke";
 import styles from "./JokeDetail.module.css";
 
 const JokeDetail = (props) => {
+  const routeMatch = useRouteMatch();
   let params = useParams();
   console.log(params);
   const joke = props.jokes.find((joke) => joke.id === +params.jokesId);
+
   return (
     <div className={styles.detail}>
       {joke ? (
@@ -14,9 +17,17 @@ const JokeDetail = (props) => {
       ) : (
         <p>Такой шутки нет</p>
       )}
-      <Route path={`/jokes/${params.jokesId}/comments`}>
-        <Comments />
-      </Route>
+      <div className="centered">
+        <Route path={`/jokes/${params.jokesId}`} exact>
+          <Link to={`/jokes/${params.jokesId}/comments`}>
+            <button className="btn--empty">Comments</button>
+          </Link>
+        </Route>
+
+        <Route path={`/jokes/${params.jokesId}/comments`}>
+          <Comments />
+        </Route>
+      </div>
     </div>
   );
 };

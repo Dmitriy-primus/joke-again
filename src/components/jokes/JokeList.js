@@ -1,24 +1,41 @@
 import { Fragment } from "react";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 import JokeItem from "./JokeItem";
 import styles from "./JokeList.module.css";
-// const jokes = [
-//   {
-//     id: "j1",
-//     topic:
-//       "Родители долго думали, чем заняться на майские праздники. Вовочка решил все за них: принес из школы кишечный вирус.",
-//     text: "Вовочка",
-//   },
-//   {
-//     id: "j2",
-//     topic:
-//       "Сказка была такой страшной, что уже после первой главы воспитательница вывела всю группу покурить.",
-//     text: "Детство",
-//   },
-// ];
+
+const sortJokes = (jokes, isAscending) => {
+  return jokes.sort((a, b) => {
+    if (isAscending) {
+      return a.id > b.id ? 1 : -1;
+    } else {
+      return a.id < b.id ? 1 : -1;
+    }
+  });
+};
+
 const JokeList = (props) => {
+  const history = useHistory();
+  const location =
+    useLocation(); /**позволяет считывать данные из url страницы на которой мы находимся */
+  const queryParams = new URLSearchParams(location.search);
+  const sortingOrder = queryParams.get("sort");
+  const isSortAscending = sortingOrder === "asc";
+  const sortedJokes = sortJokes(props.jokes, isSortAscending);
+
+  const togleSortingHendler = () => {
+    history.push("/jokes?sort=" + (isSortAscending ? "desc" : "asc"));
+  };
   return (
     <Fragment>
+      <div className={styles.sort}>
+        <button onClick={togleSortingHendler}>
+          Sort jokes {isSortAscending ? "descending" : "ascending"}
+        </button>
+      </div>
       <ul className={styles.list}>
         {props.jokes.map((joke) => (
           <JokeItem

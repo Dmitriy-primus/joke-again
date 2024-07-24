@@ -18,13 +18,17 @@ const JokeForm = (props) => {
     props.onAddJoke({ topic: enteredTopic, text: enteredText });
   }
 
+  const isSendFocusHendler = () => {
+    setFormFocused(false);
+  };
+
   const formFocusHandler = () => {
     setFormFocused(true);
   };
 
   return (
     <Fragment>
-      <Prompt
+      <Prompt /**будет срабатывать при покидании страницы если input был в фокусе */
         when={formFocused}
         message={(location) =>
           "Вы действительно хотите покинуть страницу. В таком случае, все заполненные данные исчезнут"
@@ -51,7 +55,9 @@ const JokeForm = (props) => {
             <textarea id="text" rows="5" ref={textInputRef}></textarea>
           </div>
           <div className={styles.actions}>
-            <button className="btn">Add Joke</button>
+            <button onClick={isSendFocusHendler} className="btn">
+              Add Joke
+            </button>
           </div>
         </form>
       </Card>

@@ -1,5 +1,6 @@
 .comments {
   text-align: center;
+  display: block;
 }
 
 .comments > button {
