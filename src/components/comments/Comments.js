@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import styles from './Comments.module.css';
-import NewCommentForm from './NewCommentForm';
+import styles from "./Comments.module.css";
+import NewCommentForm from "./NewCommentForm";
 
 const Comments = () => {
   const [isAddingComment, setIsAddingComment] = useState(false);
@@ -11,16 +11,16 @@ const Comments = () => {
   };
 
   return (
-    <section className={styles.comments}>
+    <div className={styles.comments}>
       <h2>User Comments</h2>
       {!isAddingComment && (
-        <button className='btn' onClick={startAddCommentHandler}>
+        <button className="btn" onClick={startAddCommentHandler}>
           Add a Comment
         </button>
       )}
       {isAddingComment && <NewCommentForm />}
       <p>Comments...</p>
-    </section>
+    </div>
   );
 };
 
